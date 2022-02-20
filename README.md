@@ -36,6 +36,4 @@ Projeto atualmente hopedado em:
 
 <br>
 
-# Licença
-
 
