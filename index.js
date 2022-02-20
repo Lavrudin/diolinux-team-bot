@@ -1,5 +1,6 @@
 const { Intents, Client } = require("discord.js");
-const { token, prefixRedaction, prefixEditor } = require("./config.json");
+const { prefixRedaction, prefixEditor } = require("./config.json");
+require("dotenv").config();
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -12,12 +13,12 @@ client.on("ready", () => {
 client.on("messageCreate", (msg) => {
   if (msg.content.startsWith(prefixRedaction)) {
     let args = msg.content.split(" ");
-    let argsSlice = args.slice(1, 1000).join(" ");
-    if (argsSlice.length === 0) {
+    let argsSliced = args.slice(1).join(" ");
+    if (argsSliced.length === 0) {
       msg.reply({
         content: `Ops! Parece que você esqueceu de inserir argumentos 😬`,
       });
-      if (argsSlice.length === 1) {
+      if (argsSliced.length === 1) {
         msg.reply({
           content: `Ops! Parece que você esqueceu de inserir o nome do artigo 😬`,
         });
@@ -31,27 +32,27 @@ client.on("messageCreate", (msg) => {
 
   if (msg.content.startsWith(prefixEditor)) {
     let args = msg.content.split(" ");
-    let argsSlice = args.slice(2, 1000).join(" ");
+    let argsSliced = args.sliced(2).join(" ");
 
     switch (args[1]) {
       case "1":
         msg.reply({
-          content: `Revisão do artigo "**${argsSlice}**" liberada ✅`,
+          content: `Revisão do artigo "**${argsSliced}**" liberada ✅`,
         });
         break;
       case "2":
         msg.reply({
-          content: `Revisão do artigo "**${argsSlice}**" liberada com observações 👀`,
+          content: `Revisão do artigo "**${argsSliced}**" liberada com observações 👀`,
         });
         break;
       case "1t":
         msg.reply({
-          content: `Revisão do artigo "**${argsSlice}**" liberada ✅ \n\nAguardando thumb 🖼`,
+          content: `Revisão do artigo "**${argsSliced}**" liberada ✅ \n\nAguardando thumb 🖼`,
         });
         break;
       case "2t":
         msg.reply({
-          content: `Revisão do artigo "**${argsSlice}**" liberada com observações 👀 \n\nAguardando thumb 🖼`,
+          content: `Revisão do artigo "**${argsSliced}**" liberada com observações 👀 \n\nAguardando thumb 🖼`,
         });
         break;
       default:
@@ -62,4 +63,4 @@ client.on("messageCreate", (msg) => {
   }
 });
 
-client.login(token);
+client.login(process.env.TOKEN);
