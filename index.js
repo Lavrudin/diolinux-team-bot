@@ -25,7 +25,7 @@ client.on("messageCreate", (msg) => {
       }
     } else {
       msg.reply({
-        content: `${msg.author} acabou  de mandar o artigo "**${argsSlice}**" para a fila de revisão 🚀 \n\n Divirta-se, <@257316997707071491> 😁`,
+        content: `${msg.author} acabou  de mandar o artigo "**${argsSliced}**" para a fila de revisão 🚀 \n\n Divirta-se, <@257316997707071491> 😁`,
       });
     }
   }
@@ -63,4 +63,4 @@ client.on("messageCreate", (msg) => {
   }
 });
 
-client.login(process.env.TOKEN); 
+client.login(process.env.TOKEN);
