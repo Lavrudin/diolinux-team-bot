@@ -32,7 +32,7 @@ client.on("messageCreate", (msg) => {
 
   if (msg.content.startsWith(prefixEditor)) {
     let args = msg.content.split(" ");
-    let argsSliced = args.sliced(2).join(" ");
+    let argsSliced = args.slice(2).join(" ");
 
     switch (args[1]) {
       case "1":
