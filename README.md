@@ -21,7 +21,7 @@ Este projeto foi desenvolvido utilizando:
 - <a href="https://discord.js.org/#/"> Discord.js </a>
 - <a href="https://nodejs.org/en/"> Node.js </a>
 
-Projeto atualmente hopedado em:
+Projeto atualmente hospedado em:
 
 - <a href="https://discloudbot.com/">Discloud</a>
 
