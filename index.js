@@ -16,15 +16,15 @@ client.on("messageCreate", (msg) => {
   if (msg.content.startsWith(prefixRedaction)) {
     let args = msg.content.split(" ");
     let argsSliced = args.slice(1).join(" ");
+
     if (argsSliced.length === 0) {
       msg.reply({
         content: `Ops! Parece que você esqueceu de inserir argumentos 😬`,
       });
-      if (argsSliced.length === 1) {
-        msg.reply({
-          content: `Ops! Parece que você esqueceu de inserir o nome do artigo 😬`,
-        });
-      }
+    } else if (argsSliced.length === 1) {
+      msg.reply({
+        content: `Ops! Parece que você esqueceu de inserir o nome do artigo 😬`,
+      });
     } else {
       msg.reply({
         content: `${msg.author} acabou  de mandar o artigo "**${argsSliced}**" para a fila de revisão 🚀 \n\n Divirta-se, <@257316997707071491> 😁`,
