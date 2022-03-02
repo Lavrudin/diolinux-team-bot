@@ -11,6 +11,8 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", (msg) => {
+  if (msg.author.bot) return;
+
   if (msg.content.startsWith(prefixRedaction)) {
     let args = msg.content.split(" ");
     let argsSliced = args.slice(1).join(" ");
