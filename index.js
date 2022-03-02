@@ -10,30 +10,26 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", (message) => {
+  // Ignores bot messages
   if (message.author.bot) return;
 
+  // Ignores commandName and extract arguments
   const args = message.content.split(' ').slice(1);
 
-  if (message.content.startsWith(prefixRedaction)) {
-    const postName = args.join(' ');
+  if (args.length === 0) {
+    return message.reply({ content: `Ops! Parece que você esqueceu de inserir argumentos 😬` });
+  }
 
-    if (argsSliced.length === 0) {
-      message.reply({
-        content: `Ops! Parece que você esqueceu de inserir argumentos 😬`,
-      });
-    } else if (argsSliced.length === 1) {
-      message.reply({
-        content: `Ops! Parece que você esqueceu de inserir o nome do artigo 😬`,
-      });
-    } else {
-      message.reply({
-        content: `${message.author} acabou  de mandar o artigo "**${postName}**" para a fila de revisão 🚀 \n\n Divirta-se, <@257316997707071491> 😁`,
-      });
-    }
+  if (message.content.startsWith(prefixRedaction)) {
+    const postName = args.join(' '); // commandName postName
+
+    return message.reply({
+      content: `${message.author} acabou  de mandar o artigo "**${postName}**" para a fila de revisão 🚀 \n\n Divirta-se, <@257316997707071491> 😁`,
+    });
   }
 
   if (message.content.startsWith(prefixEditor)) {
-    const postName = args.slice(1).join(' ');
+    const postName = args.slice(1).join(' '); // commandName postStatus postName
 
     const messages = {
       '1': `Revisão do artigo "**${postName}**" liberada ✅`,
@@ -41,9 +37,9 @@ client.on("messageCreate", (message) => {
       '1t': `Revisão do artigo "**${postName}**" liberada ✅ \n\nAguardando thumb 🖼`,
       '2t': `Revisão do artigo "**${postName}**" liberada com observações 👀 \n\nAguardando thumb 🖼`,
       '_default': 'Ops! Parece que você esqueceu de inserir argumentos 😬'
-    }
+    };
 
-    message.reply({ content: messages[args[0]] || messages['_default'] });
+    return message.reply({ content: messages[args[0]] || messages['_default'] });
   }
 });
 
