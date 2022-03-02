@@ -16,12 +16,12 @@ client.on("messageCreate", (message) => {
   // Ignores commandName and extract arguments
   const args = message.content.split(' ').slice(1);
 
-  if (args.length === 0) {
-    return message.reply({ content: `Ops! Parece que você esqueceu de inserir argumentos 😬` });
-  }
-
   if (message.content.startsWith(prefixRedaction)) {
-    const postName = args.join(' '); // commandName postName
+    const postName = args.join(' ');
+
+    if (args.length === 0) {
+      return message.reply({ content: `Ops! Parece que você esqueceu de inserir o nome do artigo 😬` });
+    }
 
     return message.reply({
       content: `${message.author} acabou  de mandar o artigo "**${postName}**" para a fila de revisão 🚀 \n\n Divirta-se, <@257316997707071491> 😁`,
@@ -29,17 +29,24 @@ client.on("messageCreate", (message) => {
   }
 
   if (message.content.startsWith(prefixEditor)) {
-    const postName = args.slice(1).join(' '); // commandName postStatus postName
-
+    const commandAction = args[0];
+    const postName = args.slice(1).join(' ');
+    
+    if (args.length < 2) {
+      return message.reply({
+        content: `Por favor insira a ação do comando e o nome do artigo. Ex: ${prefixEditor} 2t O que é No-Code e Low-Code? 😁`,
+      });
+    }
+    
     const messages = {
       '1': `Revisão do artigo "**${postName}**" liberada ✅`,
       '2': `Revisão do artigo "**${postName}**" liberada com observações 👀`,
       '1t': `Revisão do artigo "**${postName}**" liberada ✅ \n\nAguardando thumb 🖼`,
       '2t': `Revisão do artigo "**${postName}**" liberada com observações 👀 \n\nAguardando thumb 🖼`,
-      '_default': 'Ops! Parece que você esqueceu de inserir argumentos 😬'
+      '_default': 'Ops! O argumento que você informou é inválido. 😬'
     };
 
-    return message.reply({ content: messages[args[0]] || messages['_default'] });
+    return message.reply({ content: messages[commandAction] || messages['_default'] });
   }
 });
 
